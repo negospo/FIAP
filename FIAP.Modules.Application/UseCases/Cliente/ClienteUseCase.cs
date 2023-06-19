@@ -26,9 +26,16 @@ namespace FIAP.Modules.Application.UseCases
             return clienteDto;
         }
 
-        public bool Save(ClienteDto clienteDto)
+        public ClienteDto Save(CreateClienteDto createClienteDto)
         {
-            throw new NotImplementedException();
+            var clienteDto = new ClienteDto
+            {
+                Id = 11,
+                Nome = createClienteDto.Nome,
+                Cpf = createClienteDto.Cpf,
+                Email = createClienteDto.Email,
+            };
+            return clienteDto;
         }
     }
 }

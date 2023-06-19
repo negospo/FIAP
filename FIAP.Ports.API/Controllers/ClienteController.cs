@@ -19,13 +19,13 @@ namespace FIAP.Ports.API.Controllers
         [HttpGet("{cpf}")]
         public ActionResult<ClienteDto> GetClientPorCpf(string cpf)
         {
-            return Ok(_clienteUseCase.GetClientePorCpf(cpf));
+            return _clienteUseCase.GetClientePorCpf(cpf);
         }
 
         [HttpPost]
-        public IActionResult CreateCliente([FromBody] ClienteDto clienteDto)
+        public ActionResult<ClienteDto> CreateCliente([FromBody] CreateClienteDto createClienteDto)
         {
-            throw new NotImplementedException();
+            return _clienteUseCase.Save(createClienteDto);
         }
 
     }

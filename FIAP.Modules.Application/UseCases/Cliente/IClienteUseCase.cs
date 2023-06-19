@@ -1,4 +1,4 @@
-﻿using FIAP.Modules.Domain.Entities;
+﻿using FIAP.Modules.Application.DTO;
 
 namespace FIAP.Modules.Application.UseCases
 {
@@ -6,7 +6,7 @@ namespace FIAP.Modules.Application.UseCases
     {
         public DTO.ClienteDto GetClientePorCpf(string cpf);
 
-        public bool Save(DTO.ClienteDto clienteDto);
+        public ClienteDto Save(CreateClienteDto createClienteDto);
 
     }
 }
