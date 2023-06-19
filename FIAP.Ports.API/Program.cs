@@ -1,3 +1,7 @@
+using FIAP.Adapters.PostgreSQL.Repositories;
+using FIAP.Modules.Application.UseCases;
+using FIAP.Modules.Domain.Repositories;
+
 namespace FIAP.Ports.API
 {
     public class Program
@@ -12,6 +16,9 @@ namespace FIAP.Ports.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+            builder.Services.AddScoped<IClienteUseCase, ClienteUseCase>();
 
             var app = builder.Build();
 

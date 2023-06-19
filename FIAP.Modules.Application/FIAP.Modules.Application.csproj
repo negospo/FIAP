@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Cliente\" />
-    <Folder Include="UseCases\Produto\" />
-    <Folder Include="UseCases\Pedido\" />
+    <ProjectReference Include="..\FIAP.Modules.Domain\FIAP.Modules.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿namespace FIAP.Modules.Domain.Repositories
 {
-    public interface ICliente
+    public interface IClienteRepository
     {
         public Entities.Cliente Get(int id);
         public IEnumerable<Entities.Cliente> List();

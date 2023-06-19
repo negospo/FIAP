@@ -2,7 +2,7 @@
 
 namespace FIAP.Adapters.PostgreSQL.Repositories
 {
-    public class Cliente : ICliente
+    public class ClienteRepository : IClienteRepository
     {
         public bool Delete(int id)
         {
@@ -19,7 +19,9 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
             return new Modules.Domain.Entities.Cliente
             {
                 Cpf = cpf,
-                Id = 10
+                Id = 10,
+                Nome = "Zé",
+                Email = "zé@zémail.com"
             };
         }
 
@@ -27,7 +29,7 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
         {
             return new List<Modules.Domain.Entities.Cliente>
             {
-                new Modules.Domain.Entities.Cliente{  Id = 1},
+                new Modules.Domain.Entities.Cliente{ Id = 1},
                 new Modules.Domain.Entities.Cliente{ Id = 2}
             };
         }

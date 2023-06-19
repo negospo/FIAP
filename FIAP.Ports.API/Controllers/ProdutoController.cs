@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Ports.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase
     {
@@ -19,14 +16,14 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpGet]
         [Route("get")]
-        public async Task<Modules.Application.DTO.Produto> Get()
+        public async Task<Modules.Application.DTO.ProdutoDto> Get()
         {
-            return new Modules.Application.DTO.Produto();
+            return new Modules.Application.DTO.ProdutoDto();
         }
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<bool>> Save(Modules.Application.DTO.Produto model)
+        public async Task<ActionResult<bool>> Save(Modules.Application.DTO.ProdutoDto model)
         {
             return true;
         }
