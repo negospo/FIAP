@@ -10,6 +10,6 @@
         public Enums.PedidoStatus PedidoStatusId { get; set; }
         public decimal Valor { get; set; }
         public string ClienteObservacao { get; set; }
-        public List<PedidoItem> Itens { get; set; }
+        public IEnumerable<PedidoItem> Itens { get; set; }
     }
 }
