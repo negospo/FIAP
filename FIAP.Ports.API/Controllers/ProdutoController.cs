@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FIAP.Modules.Application.DTO;
+using FIAP.Modules.Application.UseCases;
+using FIAP.Modules.Domain.Enums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Ports.API.Controllers
 {
@@ -8,25 +11,37 @@ namespace FIAP.Ports.API.Controllers
     {
 
         private readonly ILogger<ProdutoController> _logger;
-        public ProdutoController(ILogger<ProdutoController> logger)
+        private readonly IProdutoUseCase _produtoUseCase;
+
+        public ProdutoController(ILogger<ProdutoController> logger, IProdutoUseCase produtoUseCase)
         {
             _logger = logger;
+            _produtoUseCase = produtoUseCase;
+        }
+        [HttpGet]
+        public ActionResult<ICollection<ProdutoDto>> GetByCategoria(ProdutoCategoria produtoCategoria)
+        {
+            return Ok(_produtoUseCase.GetByCategoria(produtoCategoria));
         }
 
-
-        [HttpGet]
-        [Route("get")]
-        public async Task<Modules.Application.DTO.ProdutoDto> Get()
+        [HttpGet("{id}")] 
+        public ActionResult<ProdutoDto> Get(int id)
         {
-            return new Modules.Application.DTO.ProdutoDto();
+            return _produtoUseCase.Get(id);
         }
 
         [HttpPost]
-        [Route("save")]
-        public async Task<ActionResult<bool>> Save(Modules.Application.DTO.ProdutoDto model)
+        public ActionResult<ProdutoDto> Save(ProdutoDto produtoDto)
         {
-            return true;
+            return _produtoUseCase.Save(produtoDto);
         }
 
+        //To do: Implementar delete method
+        [HttpDelete]
+        public ActionResult Delete(int id) 
+        {
+            _produtoUseCase.Delete(id);
+            return NoContent();
+        }
     }
 }
