@@ -23,7 +23,7 @@ namespace FIAP.Ports.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ClienteDto> CreateCliente([FromBody] CreateClienteDto createClienteDto)
+        public ActionResult<ClienteDto> CreateCliente(CreateClienteDto createClienteDto)
         {
             return _clienteUseCase.Save(createClienteDto);
         }
