@@ -1,10 +1,8 @@
-﻿using FIAP.Modules.Domain.Entities;
-using FIAP.Modules.Domain.Enums;
-using System;
+﻿using FIAP.Modules.Domain.Enums;
 
-namespace FIAP.Modules.Application.DTO
+namespace FIAP.Modules.Application.DTO.Pedido
 {
-    public class PedidoDto
+    public class Response
     {
         public int Id { get; set; }
         public DateTime Data { get; set; }
@@ -14,6 +12,6 @@ namespace FIAP.Modules.Application.DTO
         public PedidoStatus PedidoStatusId { get; set; }
         public decimal Valor { get; set; }
         public string ClienteObservacao { get; set; }
-        public List<PedidoItem> Itens { get; set; }
+        public List<PedidoItem.Response> Itens { get; set; }
     }
 }

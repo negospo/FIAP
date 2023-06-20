@@ -1,34 +1,30 @@
 ﻿using FIAP.Modules.Application.DTO;
+using FIAP.Modules.Domain.Enums;
 using FIAP.Modules.Domain.Repositories;
 
 namespace FIAP.Modules.Application.UseCases
 {
     public class PedidoUseCase : IPedidoUseCase
     {
-        private readonly IPedidoRepository _pedidoRepository;
+        private readonly IPedido _pedidoRepository;
 
-        public PedidoUseCase(IPedidoRepository pedidoRepository)
+        public PedidoUseCase(IPedido pedidoRepository)
         {
             _pedidoRepository = pedidoRepository;
         }
-        public IEnumerable<PedidoDto> List()
+
+        public IEnumerable<DTO.Pedido.Response> List()
         {
-            _pedidoRepository.List();   
             throw new NotImplementedException();
         }
-        public PedidoDto Get(int id)
+
+        public IEnumerable<DTO.Pedido.Response> ListByStatus(PedidoStatus status)
         {
-            _pedidoRepository.Get(id);
             throw new NotImplementedException();
         }
-        public PedidoDto Save(CreatePedidoDto createPedidoDto)
+
+        public bool Order(DTO.Pedido.Request pedido)
         {
-            
-            throw new NotImplementedException();
-        }
-        public bool Delete(int id)
-        {
-            _pedidoRepository.Delete(id);
             throw new NotImplementedException();
         }
     }

@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Ports.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("Pedido")]
     public class PedidoController : ControllerBase
     {
         private readonly IPedidoUseCase _pedidoUseCase;
@@ -17,33 +17,24 @@ namespace FIAP.Ports.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<PedidoDto>> List()
+        [Route("list")]
+        public ActionResult<IEnumerable<Modules.Application.DTO.Pedido.Response>> List()
         {
             return Ok(_pedidoUseCase.List());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<PedidoDto> Get(int id)
+        [HttpGet]
+        [Route("listbystatus")]
+        public ActionResult<IEnumerable<Modules.Application.DTO.Pedido.Response>> ListByStatus(Modules.Domain.Enums.PedidoStatus status)
         {
-            return _pedidoUseCase.Get(id);
+            return Ok(_pedidoUseCase.ListByStatus(status));
         }
 
         [HttpPost]
-        public ActionResult<PedidoDto> Post(CreatePedidoDto createPedidoDto)
+        [Route("order")]
+        public ActionResult<bool> Create(Modules.Application.DTO.Pedido.Request pedido)
         {
-            return _pedidoUseCase.Save(createPedidoDto);
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            _pedidoUseCase.Delete(id);
-            return NoContent(); 
+            return Ok(_pedidoUseCase.Order(pedido));
         }
     }
 }

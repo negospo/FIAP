@@ -6,31 +6,41 @@ namespace FIAP.Modules.Application.UseCases
 {
     public class ProdutoUseCase : IProdutoUseCase
     {
-        private readonly IProdutoRepository _produtoRepository;
+        private readonly IProduto _produtoRepository;
 
-        public ProdutoUseCase(IProdutoRepository produtoRepository)
+        public ProdutoUseCase(IProduto produtoRepository)
         {
             _produtoRepository = produtoRepository;
         }
 
-        public ProdutoDto Get(int id)
-        {
-            _produtoRepository.Get(id);
-            throw new NotImplementedException();
-        }
-        public ICollection<ProdutoDto> GetByCategoria(ProdutoCategoria categoria)
-        {
-            _produtoRepository.GetByCategoria(categoria);
-            throw new NotImplementedException();
-        }
-        public ProdutoDto Save(ProdutoDto produtoDto)
-        {
-            throw new NotImplementedException();
-        }
         public bool Delete(int id)
         {
-            _produtoRepository.Delete(id);
-            return true;
+            throw new NotImplementedException();
+        }
+
+        public DTO.Produto.Response Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Insert(DTO.Produto.Request produto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DTO.Produto.Response> List()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DTO.Produto.Response> ListByCategory(ProdutoCategoria categoria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(DTO.Produto.Request produto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

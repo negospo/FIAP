@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Ports.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("Produto")]
     public class ProdutoController : ControllerBase
     {
-
         private readonly ILogger<ProdutoController> _logger;
         private readonly IProdutoUseCase _produtoUseCase;
 
@@ -18,30 +17,49 @@ namespace FIAP.Ports.API.Controllers
             _logger = logger;
             _produtoUseCase = produtoUseCase;
         }
+
         [HttpGet]
-        public ActionResult<ICollection<ProdutoDto>> GetByCategoria(ProdutoCategoria produtoCategoria)
+        [Route("{id}")]
+        public ActionResult<Modules.Application.DTO.Produto.Response> Get(int id)
         {
-            return Ok(_produtoUseCase.GetByCategoria(produtoCategoria));
+            return Ok(_produtoUseCase.Get(id));
         }
 
-        [HttpGet("{id}")] 
-        public ActionResult<ProdutoDto> Get(int id)
+        [HttpGet]
+        [Route("list")]
+        public ActionResult<IEnumerable<Modules.Application.DTO.Produto.Response>> List()
         {
-            return _produtoUseCase.Get(id);
+            return Ok(_produtoUseCase.List());
+        }
+
+        [HttpGet]
+        [Route("listbycategory")]
+        public ActionResult<IEnumerable<Modules.Application.DTO.Produto.Response>> ListByCategory(Modules.Domain.Enums.ProdutoCategoria categoria)
+        {
+            return Ok(_produtoUseCase.ListByCategory(categoria));
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public ActionResult<bool> Delete(int id)
+        {
+            return Ok(_produtoUseCase.Delete(id));
+        }
+
+
+        [HttpPost]
+        [Route("create")]
+        public ActionResult<bool> Create(Modules.Application.DTO.Produto.Request cliente)
+        {
+            return Ok(_produtoUseCase.Insert(cliente));
         }
 
         [HttpPost]
-        public ActionResult<ProdutoDto> Save(ProdutoDto produtoDto)
+        [Route("update")]
+        public ActionResult<bool> Update(Modules.Application.DTO.Produto.Request cliente)
         {
-            return _produtoUseCase.Save(produtoDto);
+            return Ok(_produtoUseCase.Update(cliente));
         }
 
-        //To do: Implementar delete method
-        [HttpDelete]
-        public ActionResult Delete(int id) 
-        {
-            _produtoUseCase.Delete(id);
-            return NoContent();
-        }
     }
 }

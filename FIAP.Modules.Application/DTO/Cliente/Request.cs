@@ -1,8 +1,8 @@
-﻿namespace FIAP.Modules.Application.DTO
+﻿namespace FIAP.Modules.Application.DTO.Cliente
 {
-    public class ClienteDto
+    public class Request
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Cpf { get; set; }

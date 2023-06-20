@@ -6,36 +6,46 @@ namespace FIAP.Modules.Application.UseCases
 {
     public class ClienteUseCase : IClienteUseCase
     {
-        private readonly IClienteRepository _clienteRepository;
+        private readonly ICliente _clienteRepository;
 
-        public ClienteUseCase(IClienteRepository clienteRepository)
+        public ClienteUseCase(ICliente clienteRepository)
         {
             _clienteRepository = clienteRepository;
         }
-        public ClienteDto GetClientePorCpf(string cpf)
-        {
-            var cliente = _clienteRepository.GetByCpf(cpf);
 
-            var clienteDto = new ClienteDto
-            {
-                Id = cliente.Id,
-                Nome = cliente.Nome,
-                Cpf = cliente.Cpf,
-                Email = cliente.Email,
-            };
-            return clienteDto;
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
         }
 
-        public ClienteDto Save(CreateClienteDto createClienteDto)
+        public bool Exists(DTO.Cliente.Request cliente)
         {
-            var clienteDto = new ClienteDto
-            {
-                Id = 11,
-                Nome = createClienteDto.Nome,
-                Cpf = createClienteDto.Cpf,
-                Email = createClienteDto.Email,
-            };
-            return clienteDto;
+            throw new NotImplementedException();
+        }
+
+        public DTO.Cliente.Response Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DTO.Cliente.Response GetByCpf(string cpf)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Insert(DTO.Cliente.Request cliente)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DTO.Cliente.Response> List()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(DTO.Cliente.Request cliente)
+        {
+            throw new NotImplementedException();
         }
     }
 }

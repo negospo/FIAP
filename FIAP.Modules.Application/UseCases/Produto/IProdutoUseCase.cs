@@ -1,13 +1,14 @@
-﻿using FIAP.Modules.Application.DTO;
-using FIAP.Modules.Domain.Enums;
+﻿using FIAP.Modules.Domain.Enums;
 
 namespace FIAP.Modules.Application.UseCases
 {
     public interface IProdutoUseCase
     {
-        public ProdutoDto Get(int id);
-        public ICollection<ProdutoDto> GetByCategoria(ProdutoCategoria categoria);
-        public ProdutoDto Save(ProdutoDto produtoDto);
+        public DTO.Produto.Response Get(int id);
+        public IEnumerable<DTO.Produto.Response> List();
+        public IEnumerable<DTO.Produto.Response> ListByCategory(ProdutoCategoria categoria);
         public bool Delete(int id);
+        public bool Insert(DTO.Produto.Request produto);
+        public bool Update(DTO.Produto.Request produto);
     }
 }

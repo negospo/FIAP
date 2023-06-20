@@ -3,7 +3,7 @@ using FIAP.Modules.Domain.Repositories;
 
 namespace FIAP.Adapters.PostgreSQL.Repositories
 {
-    public class ClienteRepository : IClienteRepository
+    public class Cliente : ICliente
     {
         public bool Delete(int id)
         {
