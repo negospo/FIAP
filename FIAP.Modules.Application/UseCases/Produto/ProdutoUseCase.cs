@@ -40,7 +40,7 @@ namespace FIAP.Modules.Application.UseCases
             {
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
-                Preco = produto.Preco,
+                Preco = produto.Preco.Value,
                 ProdutoCategoriaId = produto.ProdutoCategoriaId,
                 Imagem = produto.Imagem
             };
@@ -85,7 +85,7 @@ namespace FIAP.Modules.Application.UseCases
                 Id = produto.Id,
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
-                Preco = produto.Preco,
+                Preco = produto.Preco.Value,
                 ProdutoCategoriaId = produto.ProdutoCategoriaId,
                 Imagem = produto.Imagem
             };

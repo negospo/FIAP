@@ -1,4 +1,5 @@
 ﻿using FIAP.Modules.Application.UseCases;
+using FIAP.Ports.API.Validation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Ports.API.Controllers
@@ -37,6 +38,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("exists")]
+        [CustonValidateModel]
         public ActionResult<bool> Exists(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
             return Ok(_clienteUseCase.Exists(cliente));
@@ -51,6 +53,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("create")]
+        [CustonValidateModel]
         public ActionResult<bool> Create(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
             if (_clienteUseCase.Exists(cliente))
@@ -61,6 +64,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("update")]
+        [CustonValidateModel]
         public ActionResult<bool> Update(Modules.Application.DTO.Cliente.UpdateRequest cliente)
         {
             if (_clienteUseCase.Exists(cliente))

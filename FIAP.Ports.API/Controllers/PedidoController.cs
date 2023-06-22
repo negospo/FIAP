@@ -1,5 +1,6 @@
 ﻿using FIAP.Modules.Application.DTO;
 using FIAP.Modules.Application.UseCases;
+using FIAP.Ports.API.Validation;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -32,6 +33,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("order")]
+        [CustonValidateModel]
         public ActionResult<bool> CreateOrder(Modules.Application.DTO.Pedido.SaveRequest pedido)
         {
             return Ok(_pedidoUseCase.Order(pedido));

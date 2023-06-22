@@ -1,8 +1,12 @@
-﻿namespace FIAP.Modules.Application.DTO.PedidoItem
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FIAP.Modules.Application.DTO.PedidoItem
 {
     public class SaveRequest
     {
-        public int ProdutoId { get; set; }
-        public int Quantidade { get; set; }
+        [Required]
+        public int? ProdutoId { get; set; }
+        [Required]
+        public int? Quantidade { get; set; }
     }
 }

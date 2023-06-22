@@ -1,6 +1,7 @@
 ﻿using FIAP.Modules.Application.DTO;
 using FIAP.Modules.Application.UseCases;
 using FIAP.Modules.Domain.Enums;
+using FIAP.Ports.API.Validation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Ports.API.Controllers
@@ -49,6 +50,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("create")]
+        [CustonValidateModel]
         public ActionResult<bool> Create(Modules.Application.DTO.Produto.SaveRequest produto)
         {
             return Ok(_produtoUseCase.Insert(produto));
@@ -56,6 +58,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("update")]
+        [CustonValidateModel]
         public ActionResult<bool> Update(Modules.Application.DTO.Produto.UpdateRequest produto)
         {
             return Ok(_produtoUseCase.Update(produto));

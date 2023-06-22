@@ -94,8 +94,8 @@ namespace FIAP.Modules.Application.UseCases
             //Cria a lista de itens para o request
             var itemsRequest = pedido.Itens.Select(s => new Domain.Entities.PedidoItem.Request
             {
-                ProdutoId = s.ProdutoId,
-                Quantidade = s.Quantidade,
+                ProdutoId = s.ProdutoId.Value,
+                Quantidade = s.Quantidade.Value,
                 PrecoUnitario = products.FirstOrDefault(f => f.Id == s.ProdutoId).Preco
             });
             //Soma o total do pedido
