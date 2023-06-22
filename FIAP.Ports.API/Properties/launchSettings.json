@@ -15,7 +15,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "POSTGRE_CONNECTION_STRING": "User ID=postgres;Password=admin;Host=192.168.1.4;Port=5432;Database=Fiap;"
       }
     },
     "Docker": {
@@ -23,7 +24,11 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "POSTGRE_CONNECTION_STRING": "User ID=postgres;Password=admin;Host=192.168.1.4;Port=5432;Database=Fiap;"
+      }
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",

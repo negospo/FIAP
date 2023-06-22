@@ -1,8 +1,4 @@
-using FIAP.Adapters.PostgreSQL.Repositories;
-using FIAP.Modules.Application.UseCases;
-using FIAP.Modules.Domain.Repositories;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace FIAP.Adapters.API
@@ -14,19 +10,17 @@ namespace FIAP.Adapters.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.IgnoreNullValues = true;
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             }); 
 
-
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            Adapters.PostgreSQL.Settings.PostgreSQLConnectionString = "User ID=postgres;Password=admin;Host=192.168.1.4;Port=5432;Database=Fiap;";
+            Adapters.PostgreSQL.Settings.PostgreSQLConnectionString = Settings.PostgreSQLConnectionString;
 
             builder.Services.AddScoped<Modules.Domain.Repositories.ICliente, Adapters.PostgreSQL.Repositories.Cliente>();
             builder.Services.AddScoped<Modules.Domain.Repositories.IProduto, Adapters.PostgreSQL.Repositories.Produto>();
@@ -39,9 +33,6 @@ namespace FIAP.Adapters.API
             ConfigSwagger(builder);
 
             var app = builder.Build();
-
-            
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -49,16 +40,9 @@ namespace FIAP.Adapters.API
                 app.UseSwaggerUI();
             }
 
-
-
-
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
 
