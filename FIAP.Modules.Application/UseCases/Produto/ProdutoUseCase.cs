@@ -1,46 +1,96 @@
-﻿using FIAP.Modules.Application.DTO;
+﻿using FIAP.Modules.Application.DTO.Produto;
 using FIAP.Modules.Domain.Enums;
-using FIAP.Modules.Domain.Repositories;
 
 namespace FIAP.Modules.Application.UseCases
 {
     public class ProdutoUseCase : IProdutoUseCase
     {
-        private readonly IProduto _produtoRepository;
+        private readonly Domain.Repositories.IProduto _produtoRepository;
 
-        public ProdutoUseCase(IProduto produtoRepository)
+        public ProdutoUseCase(Domain.Repositories.IProduto produtoRepository)
         {
             _produtoRepository = produtoRepository;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return _produtoRepository.Delete(id);
         }
 
-        public DTO.Produto.Response Get(int id)
+        public Response Get(int id)
         {
-            throw new NotImplementedException();
+            var result = _produtoRepository.Get(id);
+            if (result == null)
+                return null;
+
+            return new Response
+            {
+                Id = result.Id,
+                Nome = result.Nome,
+                Descricao = result.Descricao,
+                Preco = result.Preco,
+                ProdutoCategoriaId = result.ProdutoCategoriaId,
+                Imagem = result.Imagem
+            };
         }
 
-        public bool Insert(DTO.Produto.Request produto)
+        public bool Insert(SaveRequest produto)
         {
-            throw new NotImplementedException();
+            var newProd = new Domain.Entities.Produto.Request
+            {
+                Nome = produto.Nome,
+                Descricao = produto.Descricao,
+                Preco = produto.Preco,
+                ProdutoCategoriaId = produto.ProdutoCategoriaId,
+                Imagem = produto.Imagem
+            };
+
+            return _produtoRepository.Insert(newProd);
         }
 
-        public IEnumerable<DTO.Produto.Response> List()
+        public IEnumerable<Response> List()
         {
-            throw new NotImplementedException();
+            var result = _produtoRepository.List().Select(s => new Response
+            {
+                Id = s.Id,
+                Nome = s.Nome,
+                Descricao = s.Descricao,
+                Preco = s.Preco,
+                ProdutoCategoriaId = s.ProdutoCategoriaId,
+                Imagem = s.Imagem
+            }).ToList();
+
+            return result;
         }
 
-        public IEnumerable<DTO.Produto.Response> ListByCategory(ProdutoCategoria categoria)
+        public IEnumerable<Response> ListByCategory(ProdutoCategoria categoria)
         {
-            throw new NotImplementedException();
+            var result = _produtoRepository.ListByCategory(categoria).Select(s => new Response
+            {
+                Id = s.Id,
+                Nome = s.Nome,
+                Descricao = s.Descricao,
+                Preco = s.Preco,
+                ProdutoCategoriaId = s.ProdutoCategoriaId,
+                Imagem = s.Imagem
+            }).ToList();
+
+            return result;
         }
 
-        public bool Update(DTO.Produto.Request produto)
+        public bool Update(UpdateRequest produto)
         {
-            throw new NotImplementedException();
+            var newProd = new Domain.Entities.Produto.Request
+            {
+                Id = produto.Id,
+                Nome = produto.Nome,
+                Descricao = produto.Descricao,
+                Preco = produto.Preco,
+                ProdutoCategoriaId = produto.ProdutoCategoriaId,
+                Imagem = produto.Imagem
+            };
+
+            return _produtoRepository.Update(newProd);
         }
     }
 }

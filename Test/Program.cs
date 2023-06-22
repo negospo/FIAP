@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using FIAP.Modules.Domain;
 
 namespace Test
 {
@@ -42,28 +42,24 @@ namespace Test
 
         static void InsertProduct()
         {
-            FIAP.Modules.Domain.Entities.Produto prod = new FIAP.Modules.Domain.Entities.Produto()
-            {
-                Nome = $"Teste {Guid.NewGuid().ToString()}",
-                Preco = 10,
-                ProdutoCategoriaId = FIAP.Modules.Domain.Enums.ProdutoCategoria.Lanche
-            };
+            
 
             Console.WriteLine("Novo produto criado");
-            new FIAP.Adapters.PostgreSQL.Repositories.Produto().Insert(prod);
+            new FIAP.Adapters.PostgreSQL.Repositories.Produto().Insert(new Entities.Produto.Request);
         }
 
         static void UpdateProduct()
         {
-            FIAP.Modules.Domain.Entities.Produto prod = new FIAP.Modules.Domain.Entities.Produto()
-            {
-                Id = 1,
-                Nome = "Teste Update",
-                Preco = 10,
-                ProdutoCategoriaId = FIAP.Modules.Domain.Enums.ProdutoCategoria.Lanche
-            };
-            Console.WriteLine("Alteraçao do produto efetuada");
-            new FIAP.Adapters.PostgreSQL.Repositories.Produto().Update(prod);
+            //modules
+            //Produto prod = new FIAP.Modules.Domain.Entities.Produto()
+            //{
+            //    Id = 1,
+            //    Nome = "Teste Update",
+            //    Preco = 10,
+            //    ProdutoCategoriaId = FIAP.Modules.Domain.Enums.ProdutoCategoria.Lanche
+            //};
+            //Console.WriteLine("Alteraçao do produto efetuada");
+            //new FIAP.Adapters.PostgreSQL.Repositories.Produto().Update(prod);
         }
 
         static void ListProduct()

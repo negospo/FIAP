@@ -2,8 +2,12 @@
 {
     public interface IPedido
     {
-        public IEnumerable<Entities.Pedido> List();
-        public IEnumerable<Entities.Pedido> ListByStatus(Enums.PedidoStatus status);
-        public bool Order(Entities.Pedido pedido);
+        public IEnumerable<Entities.Pedido.Response> List();
+        public IEnumerable<Entities.Pedido.Response> ListByStatus(Enums.PedidoStatus status);
+        public Entities.Pedido.Response Get(int id);
+        public bool Order(Entities.Pedido.Request pedido);
+        public bool UpdateOrderStatus(int id, Enums.PedidoStatus status);
+
+
     }
 }

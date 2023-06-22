@@ -1,6 +1,6 @@
-﻿namespace FIAP.Modules.Domain.Entities
+﻿namespace FIAP.Modules.Domain.Entities.Cliente
 {
-    public class Cliente
+    public class Request
     {
         public int? Id { get; set; }
         public string Nome { get; set; }

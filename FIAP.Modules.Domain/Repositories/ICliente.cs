@@ -2,12 +2,12 @@
 {
     public interface ICliente
     {
-        public Entities.Cliente Get(int id);
-        public IEnumerable<Entities.Cliente> List();
+        public Entities.Cliente.Response Get(int id);
+        public IEnumerable<Entities.Cliente.Response> List();
         public bool Delete(int id);
-        public bool Insert(Entities.Cliente cliente);
-        public bool Update(Entities.Cliente cliente);
-        public Entities.Cliente GetByCpf(string cpf);
-        public bool Exists(Entities.Cliente cliente);
+        public bool Insert(Entities.Cliente.Request cliente);
+        public bool Update(Entities.Cliente.Request cliente);
+        public Entities.Cliente.Response GetByCpf(string cpf);
+        public bool Exists(Entities.Cliente.Request cliente);
     }
 }

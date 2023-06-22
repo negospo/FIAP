@@ -32,9 +32,17 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("order")]
-        public ActionResult<bool> Create(Modules.Application.DTO.Pedido.Request pedido)
+        public ActionResult<bool> CreateOrder(Modules.Application.DTO.Pedido.SaveRequest pedido)
         {
             return Ok(_pedidoUseCase.Order(pedido));
+        }
+
+
+        [HttpPost]
+        [Route("{id}/status/update")]
+        public ActionResult<bool> UpdateOrderStatus(int id, Modules.Application.DTO.Pedido.UpdateOrderStatusRequest status)
+        {
+            return Ok(_pedidoUseCase.UpdateOrderStatus(id, status.Status));
         }
     }
 }

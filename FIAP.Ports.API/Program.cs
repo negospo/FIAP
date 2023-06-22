@@ -19,6 +19,8 @@ namespace FIAP.Ports.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            Adapters.PostgreSQL.Settings.PostgreSQLConnectionString = "User ID=postgres;Password=admin;Host=192.168.1.4;Port=5432;Database=Fiap;";
+
             builder.Services.AddScoped<Modules.Domain.Repositories.ICliente, Adapters.PostgreSQL.Repositories.Cliente>();
             builder.Services.AddScoped<Modules.Domain.Repositories.IProduto, Adapters.PostgreSQL.Repositories.Produto>();
             builder.Services.AddScoped<Modules.Domain.Repositories.IPedido, Adapters.PostgreSQL.Repositories.Pedido>();

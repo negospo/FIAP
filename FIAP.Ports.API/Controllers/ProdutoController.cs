@@ -49,16 +49,16 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<bool> Create(Modules.Application.DTO.Produto.Request cliente)
+        public ActionResult<bool> Create(Modules.Application.DTO.Produto.SaveRequest produto)
         {
-            return Ok(_produtoUseCase.Insert(cliente));
+            return Ok(_produtoUseCase.Insert(produto));
         }
 
         [HttpPost]
         [Route("update")]
-        public ActionResult<bool> Update(Modules.Application.DTO.Produto.Request cliente)
+        public ActionResult<bool> Update(Modules.Application.DTO.Produto.UpdateRequest produto)
         {
-            return Ok(_produtoUseCase.Update(cliente));
+            return Ok(_produtoUseCase.Update(produto));
         }
 
     }

@@ -37,7 +37,7 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("exists")]
-        public ActionResult<bool> Exists(Modules.Application.DTO.Cliente.Request cliente)
+        public ActionResult<bool> Exists(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
             return Ok(_clienteUseCase.Exists(cliente));
         }
@@ -51,15 +51,21 @@ namespace FIAP.Ports.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult<bool> Create(Modules.Application.DTO.Cliente.Request cliente)
+        public ActionResult<bool> Create(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
+            if (_clienteUseCase.Exists(cliente))
+                return Conflict("Cliente já existe");
+
             return Ok(_clienteUseCase.Insert(cliente));
         }
 
         [HttpPost]
         [Route("update")]
-        public ActionResult<bool> Update(Modules.Application.DTO.Cliente.Request cliente)
+        public ActionResult<bool> Update(Modules.Application.DTO.Cliente.UpdateRequest cliente)
         {
+            if (_clienteUseCase.Exists(cliente))
+                return Conflict("Email ou CPF ja estão em uso");
+
             return Ok(_clienteUseCase.Update(cliente));
         }
     }

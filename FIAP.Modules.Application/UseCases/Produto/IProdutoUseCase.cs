@@ -8,7 +8,7 @@ namespace FIAP.Modules.Application.UseCases
         public IEnumerable<DTO.Produto.Response> List();
         public IEnumerable<DTO.Produto.Response> ListByCategory(ProdutoCategoria categoria);
         public bool Delete(int id);
-        public bool Insert(DTO.Produto.Request produto);
-        public bool Update(DTO.Produto.Request produto);
+        public bool Insert(DTO.Produto.SaveRequest produto);
+        public bool Update(DTO.Produto.UpdateRequest produto);
     }
 }
