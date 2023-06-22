@@ -1,8 +1,8 @@
 ﻿using FIAP.Modules.Application.UseCases;
-using FIAP.Ports.API.Validation;
+using FIAP.Adapters.API.Validation;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIAP.Ports.API.Controllers
+namespace FIAP.Adapters.API.Controllers
 {
     [ApiController]
     [Route("Cliente")]

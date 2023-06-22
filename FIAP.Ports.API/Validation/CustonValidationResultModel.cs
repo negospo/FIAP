@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace FIAP.Ports.API.Validation
+namespace FIAP.Adapters.API.Validation
 {
     public class CustonValidationResultModel
     {

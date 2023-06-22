@@ -7,19 +7,19 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["FIAP.Ports.API/FIAP.Ports.API.csproj", "FIAP.Ports.API/"]
+COPY ["FIAP.Adapters.API/FIAP.Adapters.API.csproj", "FIAP.Adapters.API/"]
 COPY ["FIAP.Adapters.PostgreSQL/FIAP.Adapters.PostgreSQL.csproj", "FIAP.Adapters.PostgreSQL/"]
 COPY ["FIAP.Modules.Domain/FIAP.Modules.Domain.csproj", "FIAP.Modules.Domain/"]
 COPY ["FIAP.Modules.Application/FIAP.Modules.Application.csproj", "FIAP.Modules.Application/"]
-RUN dotnet restore "FIAP.Ports.API/FIAP.Ports.API.csproj"
+RUN dotnet restore "FIAP.Adapters.API/FIAP.Adapters.API.csproj"
 COPY . .
-WORKDIR "/src/FIAP.Ports.API"
-RUN dotnet build "FIAP.Ports.API.csproj" -c Release -o /app/build
+WORKDIR "/src/FIAP.Adapters.API"
+RUN dotnet build "FIAP.Adapters.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "FIAP.Ports.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "FIAP.Adapters.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FIAP.Ports.API.dll"]
+ENTRYPOINT ["dotnet", "FIAP.Adapters.API.dll"]

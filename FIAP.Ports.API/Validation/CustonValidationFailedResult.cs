@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FIAP.Ports.API.Validation
+namespace FIAP.Adapters.API.Validation
 {
     public class CustonValidationFailedResult : ObjectResult
     {

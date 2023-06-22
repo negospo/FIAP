@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
-namespace FIAP.Ports.API
+namespace FIAP.Adapters.API
 {
     public class Program
     {

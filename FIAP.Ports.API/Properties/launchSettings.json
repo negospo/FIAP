@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "FIAP.Ports.API": {
+    "FIAP.Adapters.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
