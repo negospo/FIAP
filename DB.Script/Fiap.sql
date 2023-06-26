@@ -111,6 +111,33 @@ ALTER TABLE public.pedido_item ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
+-- Name: pedido_pagamento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pedido_pagamento (
+    id integer NOT NULL,
+    pedido_id integer,
+    tipo_pagamento_id smallint
+);
+
+
+ALTER TABLE public.pedido_pagamento OWNER TO postgres;
+
+--
+-- Name: pedido_pagamento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.pedido_pagamento ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.pedido_pagamento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: pedido_status; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -194,6 +221,18 @@ ALTER TABLE public.produto ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
+-- Name: tipo_pagamento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_pagamento (
+    id smallint NOT NULL,
+    nome character varying
+);
+
+
+ALTER TABLE public.tipo_pagamento OWNER TO postgres;
+
+--
 -- Name: cliente cliente_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -207,6 +246,22 @@ ALTER TABLE ONLY public.cliente
 
 ALTER TABLE ONLY public.pedido_item
     ADD CONSTRAINT pedido_item_pk PRIMARY KEY (id);
+
+
+--
+-- Name: pedido_pagamento pedido_pagamento_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedido_pagamento
+    ADD CONSTRAINT pedido_pagamento_pk PRIMARY KEY (id);
+
+
+--
+-- Name: pedido_pagamento pedido_pagamento_un; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedido_pagamento
+    ADD CONSTRAINT pedido_pagamento_un UNIQUE (pedido_id);
 
 
 --
@@ -242,6 +297,14 @@ ALTER TABLE ONLY public.produto
 
 
 --
+-- Name: tipo_pagamento tipo_pagamento_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_pagamento
+    ADD CONSTRAINT tipo_pagamento_pk PRIMARY KEY (id);
+
+
+--
 -- Name: pedido cliente_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -254,6 +317,14 @@ ALTER TABLE ONLY public.pedido
 --
 
 ALTER TABLE ONLY public.pedido_item
+    ADD CONSTRAINT pedido_fk FOREIGN KEY (pedido_id) REFERENCES public.pedido(id);
+
+
+--
+-- Name: pedido_pagamento pedido_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedido_pagamento
     ADD CONSTRAINT pedido_fk FOREIGN KEY (pedido_id) REFERENCES public.pedido(id);
 
 
@@ -281,6 +352,14 @@ ALTER TABLE ONLY public.pedido_item
     ADD CONSTRAINT produto_fk FOREIGN KEY (produto_id) REFERENCES public.produto(id);
 
 
+--
+-- Name: pedido_pagamento tipo_pagamento_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pedido_pagamento
+    ADD CONSTRAINT tipo_pagamento_fk FOREIGN KEY (tipo_pagamento_id) REFERENCES public.tipo_pagamento(id);
+
+
 INSERT INTO public.pedido_status (nome) VALUES
 	 ('Recebido'),
 	 ('Em Preparação'),
@@ -293,6 +372,15 @@ INSERT INTO public.produto_categoria (nome) VALUES
 	 ('Acompanhamento'),
 	 ('Bebida'),
 	 ('Sobremesa');
+	 
+	 
+INSERT INTO public.tipo_pagamento
+(id, nome)
+VALUES(1, 'Débito');
+INSERT INTO public.tipo_pagamento
+(id, nome)
+VALUES(2, 'Crédito');
+
 
 
 
