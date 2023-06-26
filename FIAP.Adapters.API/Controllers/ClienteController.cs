@@ -15,6 +15,10 @@ namespace FIAP.Adapters.API.Controllers
             _clienteUseCase = clienteUseCase;
         }
 
+        /// <summary>
+        /// Retorna um cliente pelo seu id
+        /// </summary>
+        /// <param name="id">Id do cliente</param>
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Modules.Application.DTO.Cliente.Response> Get(int id)
@@ -22,6 +26,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_clienteUseCase.Get(id));
         }
 
+        /// <summary>
+        /// Retorna um cliente pelo seu cpf
+        /// </summary>
+        /// <param name="cpf">Cpf do cliente</param>
         [HttpGet]
         [Route("getbycpf")]
         public ActionResult<Modules.Application.DTO.Cliente.Response> GetByCpf(string cpf)
@@ -29,6 +37,9 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_clienteUseCase.GetByCpf(cpf));
         }
 
+        /// <summary>
+        /// Lista todos os clientes
+        /// </summary>
         [HttpGet]
         [Route("list")]
         public ActionResult<IEnumerable<Modules.Application.DTO.Cliente.Response>> List()
@@ -36,6 +47,9 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_clienteUseCase.List());
         }
 
+        /// <summary>
+        /// Verifica se um cliente ja existe
+        /// </summary>
         [HttpPost]
         [Route("exists")]
         [CustonValidateModel]
@@ -44,6 +58,9 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_clienteUseCase.Exists(cliente));
         }
 
+        /// <summary>
+        /// Exclui um cliente pelo seu id
+        /// </summary>
         [HttpDelete]
         [Route("{id}")]
         public ActionResult<bool> Delete(int id)
@@ -51,6 +68,9 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_clienteUseCase.Delete(id));
         }
 
+        /// <summary>
+        /// Cria um novo cliente
+        /// </summary>
         [HttpPost]
         [Route("create")]
         [CustonValidateModel]
@@ -62,6 +82,9 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_clienteUseCase.Insert(cliente));
         }
 
+        /// <summary>
+        /// Altera um cliente
+        /// </summary>
         [HttpPost]
         [Route("update")]
         [CustonValidateModel]

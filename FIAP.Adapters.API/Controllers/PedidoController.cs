@@ -17,6 +17,9 @@ namespace FIAP.Adapters.API.Controllers
             _pedidoUseCase = pedidoUseCase;
         }
 
+        /// <summary>
+        /// Lista todos os pedidos
+        /// </summary>
         [HttpGet]
         [Route("list")]
         public ActionResult<IEnumerable<Modules.Application.DTO.Pedido.Response>> List()
@@ -24,6 +27,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_pedidoUseCase.List());
         }
 
+        /// <summary>
+        /// Lista todos os pedidos de um status
+        /// </summary>
+        /// <param name="status">Status do pedido</param>
         [HttpGet]
         [Route("listbystatus")]
         public ActionResult<IEnumerable<Modules.Application.DTO.Pedido.Response>> ListByStatus(Modules.Domain.Enums.PedidoStatus status)
@@ -31,6 +38,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_pedidoUseCase.ListByStatus(status));
         }
 
+        /// <summary>
+        /// Cria um novo pedido
+        /// </summary>
+        /// <param name="pedido">Dados do pedido</param>
         [HttpPost]
         [Route("order")]
         [CustonValidateModel]
@@ -39,7 +50,11 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_pedidoUseCase.Order(pedido));
         }
 
-
+        /// <summary>
+        /// Altera o status de um pedido
+        /// </summary>
+        /// <param name="id">Id do pedido</param>
+        /// <param name="status">Status do pedido</param>
         [HttpPost]
         [Route("{id}/status/update")]
         public ActionResult<bool> UpdateOrderStatus(int id, Modules.Application.DTO.Pedido.UpdateOrderStatusRequest status)

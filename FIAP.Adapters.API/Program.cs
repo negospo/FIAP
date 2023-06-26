@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace FIAP.Adapters.API
@@ -38,9 +39,24 @@ namespace FIAP.Adapters.API
             app.UseSwagger();
             app.UseSwaggerUI();
 
+          
+
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", context =>
+                {
+                    context.Response.Redirect("/swagger/");
+                    return Task.CompletedTask;
+                });
+
+                // outros mapeamentos de endpoints
+            });
+
             app.Run();
         }
 
@@ -51,6 +67,10 @@ namespace FIAP.Adapters.API
             {
                 doc.SwaggerDoc("v1", new OpenApiInfo { Title = "API Fiap", Version = "v1" });
                 doc.CustomSchemaIds(x => x.FullName.Replace($"{AppDomain.CurrentDomain.FriendlyName}.", ""));
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                doc.IncludeXmlComments(xmlPath);
             });
         }
     }

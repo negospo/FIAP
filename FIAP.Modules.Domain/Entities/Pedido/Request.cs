@@ -9,5 +9,6 @@
         public decimal Valor { get; set; }
         public string ClienteObservacao { get; set; }
         public IEnumerable<PedidoItem.Request> Itens { get; set; }
+        public Enums.TipoPagamento TipoPagamentoId { get; set; }
     }
 }

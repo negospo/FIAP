@@ -12,5 +12,6 @@ namespace FIAP.Modules.Application.DTO.Pedido
         public string ClienteObservacao { get; set; }
         [RequiredList]
         public IEnumerable<PedidoItem.SaveRequest> Itens { get; set; }
+        public DTO.Pedido.PaymentRequest DadosPagamento { get; set; }
     }
 }

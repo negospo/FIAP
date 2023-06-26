@@ -13,5 +13,6 @@ namespace FIAP.Modules.Application.DTO.Pedido
         public decimal Valor { get; set; }
         public string ClienteObservacao { get; set; }
         public IEnumerable<PedidoItem.Response> Itens { get; set; }
+        public TipoPagamento TipoPagamentoId { get; set; }
     }
 }

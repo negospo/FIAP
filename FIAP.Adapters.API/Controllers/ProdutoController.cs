@@ -19,6 +19,10 @@ namespace FIAP.Adapters.API.Controllers
             _produtoUseCase = produtoUseCase;
         }
 
+        /// <summary>
+        /// Retorna um produto pelo id
+        /// </summary>
+        /// <param name="id">Id do produto</param>
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Modules.Application.DTO.Produto.Response> Get(int id)
@@ -26,6 +30,9 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_produtoUseCase.Get(id));
         }
 
+        /// <summary>
+        /// Retorna todos os produtos
+        /// </summary>
         [HttpGet]
         [Route("list")]
         public ActionResult<IEnumerable<Modules.Application.DTO.Produto.Response>> List()
@@ -33,6 +40,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_produtoUseCase.List());
         }
 
+        /// <summary>
+        /// Retorna todos os produtos de uma categoria
+        /// </summary>
+        /// <param name="categoria">Categoria do produto</param>
         [HttpGet]
         [Route("listbycategory")]
         public ActionResult<IEnumerable<Modules.Application.DTO.Produto.Response>> ListByCategory(Modules.Domain.Enums.ProdutoCategoria categoria)
@@ -40,6 +51,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_produtoUseCase.ListByCategory(categoria));
         }
 
+        /// <summary>
+        /// Exclui um produto pelo id
+        /// </summary>
+        /// <param name="id">Id do produdo</param>
         [HttpDelete]
         [Route("{id}")]
         public ActionResult<bool> Delete(int id)
@@ -47,7 +62,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_produtoUseCase.Delete(id));
         }
 
-
+        /// <summary>
+        /// Cria um novo produto
+        /// </summary>
+        /// <param name="produto">Dados do produto</param>
         [HttpPost]
         [Route("create")]
         [CustonValidateModel]
@@ -56,6 +74,10 @@ namespace FIAP.Adapters.API.Controllers
             return Ok(_produtoUseCase.Insert(produto));
         }
 
+        /// <summary>
+        /// Altera um produto
+        /// </summary>
+        /// <param name="produto">Dados do produdo</param>
         [HttpPost]
         [Route("update")]
         [CustonValidateModel]

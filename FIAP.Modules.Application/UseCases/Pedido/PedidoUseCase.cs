@@ -32,7 +32,8 @@ namespace FIAP.Modules.Application.UseCases
                 {
                     ProdutoId = si.ProdutoId,
                     Quantidade = si.Quantidade
-                })
+                }),
+                TipoPagamentoId = s.TipoPagamento
             });
 
             return result;
@@ -54,7 +55,8 @@ namespace FIAP.Modules.Application.UseCases
                 {
                     ProdutoId = si.ProdutoId,
                     Quantidade = si.Quantidade
-                })
+                }),
+                TipoPagamentoId = s.TipoPagamento
             });
 
             return result;
@@ -81,7 +83,8 @@ namespace FIAP.Modules.Application.UseCases
                 {
                     ProdutoId = si.ProdutoId,
                     Quantidade = si.Quantidade
-                })
+                }),
+                TipoPagamentoId = result.TipoPagamento
             };
         }
 
@@ -100,7 +103,7 @@ namespace FIAP.Modules.Application.UseCases
             });
             //Soma o total do pedido
             decimal totalValue = itemsRequest.Select(s => s.PrecoUnitario * s.Quantidade).Sum();
-            
+
             var request = new Domain.Entities.Pedido.Request
             {
                 Anonimo = pedido.Anonimo,
@@ -109,7 +112,8 @@ namespace FIAP.Modules.Application.UseCases
                 PedidoStatusId = PedidoStatus.Recebido,
                 ClienteObservacao = pedido.ClienteObservacao,
                 Valor = totalValue,
-                Itens = itemsRequest
+                Itens = itemsRequest,
+                TipoPagamentoId = pedido.DadosPagamento.TipoPagamentoId.Value
             };
 
             return _pedidoRepository.Order(request);

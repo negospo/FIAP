@@ -14,13 +14,21 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
         {
             string queryOrder = "select * from pedido";
             string queryOrderItem = "select * from pedido_item";
+            string queryPaymnet = "select pedido_id, tipo_pagamento_id from pedido_pagamento";
 
             var orders = PostgreSQL.Database.Connection().Query<Modules.Domain.Entities.Pedido.Response>(queryOrder);
             var orderItems = PostgreSQL.Database.Connection().Query<Modules.Domain.Entities.PedidoItem.Response>(queryOrderItem);
+            var payments = PostgreSQL.Database.Connection().Query(queryPaymnet);
+
 
             orders.ToList().ForEach(order =>
             {
                 order.Itens = orderItems.Where(w => w.PedidoId == order.Id);
+            });
+
+            orders.ToList().ForEach(order =>
+            {
+                order.TipoPagamento = (Modules.Domain.Enums.TipoPagamento)payments.First(w => w.pedido_id == order.Id).tipo_pagamento_id;
             });
 
             return orders;
@@ -34,6 +42,7 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
         {
             string queryOrder = "select * from pedido where pedido_status_id = @pedido_status_id";
             string queryOrderItem = "select * from pedido_item where pedido_id = any(@ids)";
+            string queryPaymnet = "select pedido_id, tipo_pagamento_id from pedido_pagamento where pedido_id = any(@ids)";
 
             var orders = PostgreSQL.Database.Connection().Query<Modules.Domain.Entities.Pedido.Response>(queryOrder,new { pedido_status_id = status });
             var orderItems = PostgreSQL.Database.Connection().Query<Modules.Domain.Entities.PedidoItem.Response>(queryOrderItem, new
@@ -41,9 +50,20 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
                 ids = orders.Select(s => s.Id).ToList()
             });
 
+            var payments = PostgreSQL.Database.Connection().Query(queryPaymnet, new
+            {
+                ids = orders.Select(s => s.Id).ToList()
+            });
+
+
             orders.ToList().ForEach(order =>
             {
                 order.Itens = orderItems.Where(w => w.PedidoId == order.Id);
+            });
+
+            orders.ToList().ForEach(order =>
+            {
+                order.TipoPagamento = (Modules.Domain.Enums.TipoPagamento)payments.First(w => w.pedido_id == order.Id).tipo_pagamento_id;
             });
 
             return orders;
@@ -57,6 +77,7 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
         {
             string queryOrder = "select * from pedido where id = @id";
             string queryOrderItem = "select * from pedido_item where pedido_id = @pedido_id";
+            string queryPaymnet = "select tipo_pagamento_id from pedido_pagamento where pedido_id = @pedido_id";
 
             var order = PostgreSQL.Database.Connection().QueryFirstOrDefault<Modules.Domain.Entities.Pedido.Response>(queryOrder, new { id = id });
             if (order == null)
@@ -64,6 +85,10 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
 
             var orderItems = PostgreSQL.Database.Connection().Query<Modules.Domain.Entities.PedidoItem.Response>(queryOrderItem, new { pedido_id = order.Id});
             order.Itens = orderItems;
+
+            var paymentType = PostgreSQL.Database.Connection().QueryFirst<Modules.Domain.Enums.TipoPagamento>(queryPaymnet, new { pedido_id = id });
+            order.TipoPagamento = paymentType;
+
             return order;
         }
 
@@ -82,6 +107,8 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
                                     (pedido_id,produto_id,preco_unitario,quantidade) 
                                     values 
                                     (@pedido_id,@produto_id,@preco_unitario,@quantidade)";
+
+            string queryPaymentInsert = "insert into pedido_pagamento (pedido_id,tipo_pagamento_id) values (@pedido_id,@tipo_pagamento_id)";
 
             using (var connection = Database.Connection())
             {
@@ -108,6 +135,12 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
                     }).ToList();
                     //Salva os itens do pedido
                     transaction.Connection.Execute(queryOrderItem, orderItems);
+
+                    transaction.Connection.Execute(queryPaymentInsert, new
+                    {
+                        pedido_id = id,
+                        tipo_pagamento_id = pedido.TipoPagamentoId
+                    });
 
                     transaction.Commit();
                     connection.Close();
