@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - POSTGRE_CONNECTION_STRING=User ID=postgres;Password=admin;Host=db;Port=5432;Database=Fiap;
+    depends_on:
+      - db
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+      - ./DB.Script:/docker-entrypoint-initdb.d
+    environment:                                                                                                  
+      - POSTGRES_USER=postgres                                                                                                  
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=Fiap
+
+      

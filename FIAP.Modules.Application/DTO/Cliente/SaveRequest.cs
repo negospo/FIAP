@@ -12,7 +12,8 @@ namespace FIAP.Modules.Application.DTO.Cliente
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        [Range(11,11)]
+        [StringLength(11)]
+        [MinLength(11)]
         public string Cpf { get; set; }
     }
 }
