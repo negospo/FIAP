@@ -89,5 +89,18 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
 
             return (affected > 0);
         }
+
+        /// <summary>
+        /// Lista os produtos pelos ids
+        /// </summary>
+        /// <param name="ids">Lista de ids dos produtos</param>
+        public IEnumerable<Modules.Domain.Entities.Produto.Response> ListByIds(List<int> ids)
+        {
+            string query = "select * from produto where excluido = false and id = ANY(@ids)";
+            return PostgreSQL.Database.Connection().Query<Modules.Domain.Entities.Produto.Response>(query, new
+            {
+                ids = ids
+            });
+        }
     }
 }

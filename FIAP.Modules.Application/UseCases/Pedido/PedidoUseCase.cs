@@ -8,12 +8,15 @@ namespace FIAP.Modules.Application.UseCases
     {
         private readonly IPedido _pedidoRepository;
         private readonly IProduto _produtoRepository;
+        private readonly ICliente _clienteRepository;
 
 
-        public PedidoUseCase(IPedido pedidoRepository, IProduto produtoRepository)
+
+        public PedidoUseCase(IPedido pedidoRepository, IProduto produtoRepository, ICliente clienteRepository)
         {
             _pedidoRepository = pedidoRepository;
             _produtoRepository = produtoRepository;
+            _clienteRepository = clienteRepository;
         }
 
         public IEnumerable<DTO.Pedido.Response> List()
@@ -90,7 +93,21 @@ namespace FIAP.Modules.Application.UseCases
 
         public bool Order(DTO.Pedido.SaveRequest pedido)
         {
-            string identifier = (pedido.Anonimo) ? Guid.NewGuid().ToString() : "";
+            if (pedido.ClienteId.HasValue && pedido.ClienteId.Value > 0)
+            { 
+                var customerExists = _clienteRepository.Get(pedido.ClienteId.Value);
+                if (customerExists == null)
+                    throw new Exception($"Cliente inválido - Id:{pedido.ClienteId.Value}");
+            }
+
+            var selectProducts = _produtoRepository.ListByIds(pedido.Itens.Select(s => s.ProdutoId.Value).ToList());
+            var prodNotFound = pedido.Itens.Where(s => !selectProducts.Any(a => a.Id == s.ProdutoId)).ToList();
+            if (prodNotFound.Count > 0)
+            {
+                throw new Exception($"Produtos inválidos - Ids:[{string.Join(",", prodNotFound.Select(s => s.ProdutoId))}]");
+            }
+
+            string identifier = (!pedido.ClienteId.HasValue || pedido.ClienteId.Value == 0) ? Guid.NewGuid().ToString() : "";
            
             //Busca os produtos do pedido para poder pegar os valores unitarios
             var products = _produtoRepository.List().Where(w => pedido.Itens.Select(s => s.ProdutoId).Any(a => a == w.Id)).ToList();
@@ -106,7 +123,7 @@ namespace FIAP.Modules.Application.UseCases
 
             var request = new Domain.Entities.Pedido.Request
             {
-                Anonimo = pedido.Anonimo,
+                Anonimo = (!pedido.ClienteId.HasValue || pedido.ClienteId.Value == 0),
                 AnonimoIdentificador = identifier,
                 ClienteId = pedido.ClienteId,
                 PedidoStatusId = PedidoStatus.Recebido,

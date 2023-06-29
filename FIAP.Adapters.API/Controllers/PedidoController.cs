@@ -2,6 +2,7 @@
 using FIAP.Modules.Application.UseCases;
 using FIAP.Adapters.API.Validation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 
 namespace FIAP.Adapters.API.Controllers
@@ -11,10 +12,13 @@ namespace FIAP.Adapters.API.Controllers
     public class PedidoController : ControllerBase
     {
         private readonly IPedidoUseCase _pedidoUseCase;
+        private readonly IClienteUseCase _clienteUseCase;
 
-        public PedidoController(IPedidoUseCase pedidoUseCase)
+
+        public PedidoController(IPedidoUseCase pedidoUseCase, IClienteUseCase clienteUseCase)
         {
             _pedidoUseCase = pedidoUseCase;
+            _clienteUseCase = clienteUseCase;
         }
 
         /// <summary>
@@ -39,15 +43,25 @@ namespace FIAP.Adapters.API.Controllers
         }
 
         /// <summary>
-        /// Cria um novo pedido
+        /// Cria um novo pedido. Deixe o ClienteId null ou 0 para fazer o pedido em modo anônimo.
         /// </summary>
         /// <param name="pedido">Dados do pedido</param>
+        /// <response code="400" >Dados de cliente ou produtos inválidos</response>
         [HttpPost]
         [Route("order")]
         [CustonValidateModel]
+        [ProducesResponseType(typeof(Validation.CustonValidationResultModel), 422)]
         public ActionResult<bool> CreateOrder(Modules.Application.DTO.Pedido.SaveRequest pedido)
         {
-            return Ok(_pedidoUseCase.Order(pedido));
+            try
+            { 
+                 var sucess = _pedidoUseCase.Order(pedido);
+                 return Ok(sucess);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -55,11 +69,18 @@ namespace FIAP.Adapters.API.Controllers
         /// </summary>
         /// <param name="id">Id do pedido</param>
         /// <param name="status">Status do pedido</param>
+        /// <response code="404" >Pedido não encontrado</response>
         [HttpPost]
         [Route("{id}/status/update")]
+       
         public ActionResult<bool> UpdateOrderStatus(int id, Modules.Application.DTO.Pedido.UpdateOrderStatusRequest status)
         {
-            return Ok(_pedidoUseCase.UpdateOrderStatus(id, status.Status));
+            var sucess = _pedidoUseCase.UpdateOrderStatus(id, status.Status);
+
+            if (!sucess)
+                return NotFound("Pedido não encontrado");
+            else
+                return Ok(sucess);
         }
     }
 }

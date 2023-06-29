@@ -5,13 +5,25 @@ namespace FIAP.Modules.Application.DTO.Pedido
 {
     public class SaveRequest
     {
-        [RequiredIf("Anonimo",false,ErrorMessage = "ClienteId deve ser populado quando Anonimo for false")]
+        /// <summary>
+        /// Id do cliente. Deixar null caso queira que o pedido seja feito em modo anônimo
+        /// </summary>
         public int? ClienteId { get; set; }
-        [Required]
-        public bool Anonimo { get; set; }
+        /// <summary>
+        /// Observação do cliente
+        /// </summary>
         public string ClienteObservacao { get; set; }
+
+        /// <summary>
+        /// Itens do pedido
+        /// </summary>
         [RequiredList]
         public IEnumerable<PedidoItem.SaveRequest> Itens { get; set; }
+
+        /// <summary>
+        /// Dados do pagamento
+        /// </summary>
+        [Required]
         public DTO.Pedido.PaymentRequest DadosPagamento { get; set; }
     }
 }

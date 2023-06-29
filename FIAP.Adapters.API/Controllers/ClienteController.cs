@@ -19,22 +19,34 @@ namespace FIAP.Adapters.API.Controllers
         /// Retorna um cliente pelo seu id
         /// </summary>
         /// <param name="id">Id do cliente</param>
+        /// <response code="404" >Pedido não encontrado</response>
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Modules.Application.DTO.Cliente.Response> Get(int id)
         {
-            return Ok(_clienteUseCase.Get(id));
+            var customer = _clienteUseCase.Get(id);
+
+            if (customer == null)
+                return NotFound("Cliente não encontrado");
+            else
+                return Ok(customer);
         }
 
         /// <summary>
         /// Retorna um cliente pelo seu cpf
         /// </summary>
         /// <param name="cpf">Cpf do cliente</param>
+        /// <response code="404" >Pedido não encontrado</response>
         [HttpGet]
         [Route("getbycpf")]
         public ActionResult<Modules.Application.DTO.Cliente.Response> GetByCpf(string cpf)
         {
-            return Ok(_clienteUseCase.GetByCpf(cpf));
+            var customer = _clienteUseCase.GetByCpf(cpf);
+
+             if (customer == null)
+                return NotFound("Cliente não encontrado");
+            else
+                return Ok(customer);
         }
 
         /// <summary>
@@ -61,19 +73,27 @@ namespace FIAP.Adapters.API.Controllers
         /// <summary>
         /// Exclui um cliente pelo seu id
         /// </summary>
+        /// <response code="404" >Pedido não encontrado</response>
         [HttpDelete]
         [Route("{id}")]
         public ActionResult<bool> Delete(int id)
         {
-            return Ok(_clienteUseCase.Delete(id));
+            var sucess = _clienteUseCase.Delete(id);
+
+            if (!sucess)
+                return NotFound("Cliente não encontrado");
+            else
+                return Ok(sucess);
         }
 
         /// <summary>
         /// Cria um novo cliente
         /// </summary>
+        /// <response code="409" >Email ou CPF ja estão em uso</response>
         [HttpPost]
         [Route("create")]
         [CustonValidateModel]
+        [ProducesResponseType(typeof(Validation.CustonValidationResultModel), 422)]
         public ActionResult<bool> Create(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
             if (_clienteUseCase.Exists(cliente))
@@ -85,15 +105,23 @@ namespace FIAP.Adapters.API.Controllers
         /// <summary>
         /// Altera um cliente
         /// </summary>
+        /// <response code="404" >Cliente não encontrado</response>
+        /// <response code="409" >Email ou CPF ja estão em uso</response>
         [HttpPost]
         [Route("update")]
         [CustonValidateModel]
+        [ProducesResponseType(typeof(Validation.CustonValidationResultModel), 422)]
         public ActionResult<bool> Update(Modules.Application.DTO.Cliente.UpdateRequest cliente)
         {
             if (_clienteUseCase.Exists(cliente))
                 return Conflict("Email ou CPF ja estão em uso");
 
-            return Ok(_clienteUseCase.Update(cliente));
+            var sucess = _clienteUseCase.Update(cliente);
+
+            if (!sucess)
+                return NotFound("Cliente não encontrado");
+            else
+                return Ok(sucess);
         }
     }
 }

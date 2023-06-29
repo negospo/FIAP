@@ -10,5 +10,6 @@ namespace FIAP.Modules.Application.UseCases
         public bool Delete(int id);
         public bool Insert(DTO.Produto.SaveRequest produto);
         public bool Update(DTO.Produto.UpdateRequest produto);
+        
     }
 }

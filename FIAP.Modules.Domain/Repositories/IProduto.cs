@@ -8,5 +8,6 @@
         public bool Delete(int id);
         public bool Insert(Entities.Produto.Request produto);
         public bool Update(Entities.Produto.Request produto);
+        public IEnumerable<Entities.Produto.Response> ListByIds(List<int> ids);
     }
 }
