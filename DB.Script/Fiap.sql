@@ -117,7 +117,10 @@ ALTER TABLE public.pedido_item ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 CREATE TABLE public.pedido_pagamento (
     id integer NOT NULL,
     pedido_id integer,
-    tipo_pagamento_id smallint
+    tipo_pagamento_id smallint,
+    status character varying,
+    valor numeric,
+    codigo_transacao character varying
 );
 
 
@@ -358,6 +361,14 @@ ALTER TABLE ONLY public.pedido_item
 
 ALTER TABLE ONLY public.pedido_pagamento
     ADD CONSTRAINT tipo_pagamento_fk FOREIGN KEY (tipo_pagamento_id) REFERENCES public.tipo_pagamento(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+
+
 
 
 INSERT INTO public.pedido_status (nome) VALUES
