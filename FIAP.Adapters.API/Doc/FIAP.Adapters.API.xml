@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FIAP.Adapters.API</name>
+    </assembly>
+    <members>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.Get(System.Int32)">
+            <summary>
+            Retorna um cliente pelo seu id
+            </summary>
+            <param name="id">Id do cliente</param>
+            <response code="404" >Pedido não encontrado</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.GetByCpf(System.String)">
+            <summary>
+            Retorna um cliente pelo seu cpf
+            </summary>
+            <param name="cpf">Cpf do cliente</param>
+            <response code="404" >Pedido não encontrado</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.List">
+            <summary>
+            Lista todos os clientes
+            </summary>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.Exists(FIAP.Modules.Application.DTO.Cliente.SaveRequest)">
+            <summary>
+            Verifica se um cliente ja existe
+            </summary>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.Delete(System.Int32)">
+            <summary>
+            Exclui um cliente pelo seu id
+            </summary>
+            <response code="404" >Pedido não encontrado</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.Create(FIAP.Modules.Application.DTO.Cliente.SaveRequest)">
+            <summary>
+            Cria um novo cliente
+            </summary>
+            <response code="409" >Email ou CPF ja estão em uso</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ClienteController.Update(FIAP.Modules.Application.DTO.Cliente.UpdateRequest)">
+            <summary>
+            Altera um cliente
+            </summary>
+            <response code="404" >Cliente não encontrado</response>
+            <response code="409" >Email ou CPF ja estão em uso</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.PedidoController.List">
+            <summary>
+            Lista todos os pedidos
+            </summary>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.PedidoController.ListByStatus(FIAP.Modules.Domain.Enums.PedidoStatus)">
+            <summary>
+            Lista todos os pedidos de um status
+            </summary>
+            <param name="status">Status do pedido</param>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.PedidoController.CreateOrder(FIAP.Modules.Application.DTO.Pedido.SaveRequest)">
+            <summary>
+            Cria um novo pedido. Deixe o ClienteId null ou 0 para fazer o pedido em modo anônimo.
+            </summary>
+            <param name="pedido">Dados do pedido</param>
+            <response code="400" >Dados de cliente ou produtos inválidos</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.PedidoController.UpdateOrderStatus(System.Int32,FIAP.Modules.Application.DTO.Pedido.UpdateOrderStatusRequest)">
+            <summary>
+            Altera o status de um pedido
+            </summary>
+            <param name="id">Id do pedido</param>
+            <param name="status">Status do pedido</param>
+            <response code="404" >Pedido não encontrado</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ProdutoController.Get(System.Int32)">
+            <summary>
+            Retorna um produto pelo id
+            </summary>
+            <param name="id">Id do produto</param>
+            <response code="404" >Produto não encontrado</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ProdutoController.List">
+            <summary>
+            Retorna todos os produtos
+            </summary>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ProdutoController.ListByCategory(FIAP.Modules.Domain.Enums.ProdutoCategoria)">
+            <summary>
+            Retorna todos os produtos de uma categoria
+            </summary>
+            <param name="categoria">Categoria do produto</param>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ProdutoController.Delete(System.Int32)">
+            <summary>
+            Exclui um produto pelo id
+            </summary>
+            <param name="id">Id do produdo</param>
+            <response code="404" >Produto não encontrado</response>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ProdutoController.Create(FIAP.Modules.Application.DTO.Produto.SaveRequest)">
+            <summary>
+            Cria um novo produto
+            </summary>
+            <param name="produto">Dados do produto</param>
+        </member>
+        <member name="M:FIAP.Adapters.API.Controllers.ProdutoController.Update(FIAP.Modules.Application.DTO.Produto.UpdateRequest)">
+            <summary>
+            Altera um produto
+            </summary>
+            <param name="produto">Dados do produdo</param>
+            <response code="404" >Produto não encontrado</response>
+        </member>
+        <member name="P:FIAP.Adapters.API.Settings.PostgreSQLConnectionString">
+            <summary>
+            String de conexão com o Postgre
+            </summary>
+        </member>
+    </members>
+</doc>
