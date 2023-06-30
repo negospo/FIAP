@@ -136,7 +136,7 @@ namespace FIAP.Modules.Application.UseCases
             {
                 Anonimo = (!pedido.ClienteId.HasValue || pedido.ClienteId.Value == 0),
                 AnonimoIdentificador = identifier,
-                ClienteId = pedido.ClienteId,
+                ClienteId = (!pedido.ClienteId.HasValue || pedido.ClienteId.Value == 0)? null : pedido.ClienteId,
                 PedidoStatusId = PedidoStatus.Recebido,
                 ClienteObservacao = pedido.ClienteObservacao,
                 Valor = totalValue,

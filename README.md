@@ -26,6 +26,9 @@ Execute o seguinte comando para iniciar os serviços definidos no arquivo `docke
 
 `docker-compose up`
 
+## Acessar a API
+Após os containers estarem rodando você já poderá acessar a aplicação no endereço: http://localhost/swagger/index.html
+
 
 
 

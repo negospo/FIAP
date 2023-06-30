@@ -12,13 +12,11 @@ namespace FIAP.Adapters.API.Controllers
     public class PedidoController : ControllerBase
     {
         private readonly IPedidoUseCase _pedidoUseCase;
-        private readonly IClienteUseCase _clienteUseCase;
 
 
         public PedidoController(IPedidoUseCase pedidoUseCase, IClienteUseCase clienteUseCase)
         {
             _pedidoUseCase = pedidoUseCase;
-            _clienteUseCase = clienteUseCase;
         }
 
         /// <summary>

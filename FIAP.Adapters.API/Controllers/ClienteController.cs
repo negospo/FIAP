@@ -19,7 +19,7 @@ namespace FIAP.Adapters.API.Controllers
         /// Retorna um cliente pelo seu id
         /// </summary>
         /// <param name="id">Id do cliente</param>
-        /// <response code="404" >Pedido não encontrado</response>
+        /// <response code="404" >Cliente não encontrado</response>
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Modules.Application.DTO.Cliente.Response> Get(int id)
@@ -36,7 +36,7 @@ namespace FIAP.Adapters.API.Controllers
         /// Retorna um cliente pelo seu cpf
         /// </summary>
         /// <param name="cpf">Cpf do cliente</param>
-        /// <response code="404" >Pedido não encontrado</response>
+        /// <response code="404" >Cliente não encontrado</response>
         [HttpGet]
         [Route("getbycpf")]
         public ActionResult<Modules.Application.DTO.Cliente.Response> GetByCpf(string cpf)
@@ -73,7 +73,7 @@ namespace FIAP.Adapters.API.Controllers
         /// <summary>
         /// Exclui um cliente pelo seu id
         /// </summary>
-        /// <response code="404" >Pedido não encontrado</response>
+        /// <response code="404" >Cliente não encontrado</response>
         [HttpDelete]
         [Route("{id}")]
         public ActionResult<bool> Delete(int id)
