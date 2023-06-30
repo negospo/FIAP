@@ -1,12 +1,12 @@
 ﻿namespace FIAP.Adapters.API.Validation
 {
-    public class CustonValidationError
+    public class CustomValidationError
     {
         public string Field { get; }
 
         public string Message { get; }
 
-        public CustonValidationError(string field, string message)
+        public CustomValidationError(string field, string message)
         {
             Field = field != string.Empty ? field : null;
             Message = message;

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP.Adapters.API.Validation
 {
-    public class CustonValidationFailedResult : ObjectResult
+    public class CustomValidationFailedResult : ObjectResult
     {
-        public CustonValidationFailedResult(ModelStateDictionary modelState)
-            : base(new CustonValidationResultModel(modelState))
+        public CustomValidationFailedResult(ModelStateDictionary modelState)
+            : base(new CustomValidationResultModel(modelState))
         {
             StatusCode = StatusCodes.Status422UnprocessableEntity;
         }

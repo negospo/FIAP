@@ -64,7 +64,7 @@ namespace FIAP.Adapters.API.Controllers
         /// </summary>
         [HttpPost]
         [Route("exists")]
-        [CustonValidateModel]
+        [CustomValidateModel]
         public ActionResult<bool> Exists(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
             return Ok(_clienteUseCase.Exists(cliente));
@@ -92,8 +92,8 @@ namespace FIAP.Adapters.API.Controllers
         /// <response code="409" >Email ou CPF ja estão em uso</response>
         [HttpPost]
         [Route("create")]
-        [CustonValidateModel]
-        [ProducesResponseType(typeof(Validation.CustonValidationResultModel), 422)]
+        [CustomValidateModel]
+        [ProducesResponseType(typeof(Validation.CustomValidationResultModel), 422)]
         public ActionResult<bool> Create(Modules.Application.DTO.Cliente.SaveRequest cliente)
         {
             if (_clienteUseCase.Exists(cliente))
@@ -109,8 +109,8 @@ namespace FIAP.Adapters.API.Controllers
         /// <response code="409" >Email ou CPF ja estão em uso</response>
         [HttpPost]
         [Route("update")]
-        [CustonValidateModel]
-        [ProducesResponseType(typeof(Validation.CustonValidationResultModel), 422)]
+        [CustomValidateModel]
+        [ProducesResponseType(typeof(Validation.CustomValidationResultModel), 422)]
         public ActionResult<bool> Update(Modules.Application.DTO.Cliente.UpdateRequest cliente)
         {
             if (_clienteUseCase.Exists(cliente))

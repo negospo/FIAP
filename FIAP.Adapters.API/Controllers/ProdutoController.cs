@@ -81,7 +81,7 @@ namespace FIAP.Adapters.API.Controllers
         /// <param name="produto">Dados do produto</param>
         [HttpPost]
         [Route("create")]
-        [CustonValidateModel]
+        [CustomValidateModel]
         public ActionResult<bool> Create(Modules.Application.DTO.Produto.SaveRequest produto)
         {
             return Ok(_produtoUseCase.Insert(produto));
@@ -94,7 +94,7 @@ namespace FIAP.Adapters.API.Controllers
         /// <response code="404" >Produto não encontrado</response>
         [HttpPost]
         [Route("update")]
-        [CustonValidateModel]
+        [CustomValidateModel]
         public ActionResult<bool> Update(Modules.Application.DTO.Produto.UpdateRequest produto)
         {
             var sucess = _produtoUseCase.Update(produto);

@@ -47,8 +47,8 @@ namespace FIAP.Adapters.API.Controllers
         /// <response code="400" >Dados de cliente ou produtos inválidos</response>
         [HttpPost]
         [Route("order")]
-        [CustonValidateModel]
-        [ProducesResponseType(typeof(Validation.CustonValidationResultModel), 422)]
+        [CustomValidateModel]
+        [ProducesResponseType(typeof(Validation.CustomValidationResultModel), 422)]
         public ActionResult<bool> CreateOrder(Modules.Application.DTO.Pedido.SaveRequest pedido)
         {
             try

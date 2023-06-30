@@ -2,13 +2,13 @@
 
 namespace FIAP.Adapters.API.Validation
 {
-    public class CustonValidateModelAttribute : ActionFilterAttribute
+    public class CustomValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
             {
-                context.Result = new CustonValidationFailedResult(context.ModelState);
+                context.Result = new CustomValidationFailedResult(context.ModelState);
             }
         }
     }
