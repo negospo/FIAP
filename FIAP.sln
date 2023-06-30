@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.Adapters.Payment", "FIAP.Adapters.Payment\FIAP.Adapters.Payment.csproj", "{71E1900B-757C-4E83-A957-E30F52E160B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{724AB1CB-C849-49B7-841C-9886FA175E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724AB1CB-C849-49B7-841C-9886FA175E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724AB1CB-C849-49B7-841C-9886FA175E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71E1900B-757C-4E83-A957-E30F52E160B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71E1900B-757C-4E83-A957-E30F52E160B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71E1900B-757C-4E83-A957-E30F52E160B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71E1900B-757C-4E83-A957-E30F52E160B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{724AB1CB-C849-49B7-841C-9886FA175E4B} = {A888516A-1E07-45C5-BF5B-E07C0E5D3D7A}
 		{A888516A-1E07-45C5-BF5B-E07C0E5D3D7A} = {33FFD1A4-0980-4DF3-AED0-4219BCE9A91D}
 		{C26EAF48-D521-4078-AA9E-4CE441E40A55} = {33FFD1A4-0980-4DF3-AED0-4219BCE9A91D}
+		{71E1900B-757C-4E83-A957-E30F52E160B2} = {C26EAF48-D521-4078-AA9E-4CE441E40A55}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96FEC44F-803A-4792-A90F-BA9518F6E3E8}

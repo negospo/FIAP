@@ -31,6 +31,9 @@ namespace FIAP.Adapters.API
             builder.Services.AddScoped<Modules.Application.UseCases.IProdutoUseCase, Modules.Application.UseCases.ProdutoUseCase>();
             builder.Services.AddScoped<Modules.Application.UseCases.IPedidoUseCase, Modules.Application.UseCases.PedidoUseCase>();
 
+            builder.Services.AddScoped<Modules.Domain.Services.IPagamentoGateway, Adapters.Payment.MercadoPago>();
+
+
             ConfigSwagger(builder);
 
             var app = builder.Build();

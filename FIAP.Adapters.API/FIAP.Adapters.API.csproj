@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FIAP.Adapters.Payment\FIAP.Adapters.Payment.csproj" />
     <ProjectReference Include="..\FIAP.Adapters.PostgreSQL\FIAP.Adapters.PostgreSQL.csproj" />
     <ProjectReference Include="..\FIAP.Modules.Application\FIAP.Modules.Application.csproj" />
     <ProjectReference Include="..\FIAP.Modules.Domain\FIAP.Modules.Domain.csproj" />

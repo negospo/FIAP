@@ -9,14 +9,14 @@ namespace FIAP.Modules.Application.UseCases
         private readonly IPedido _pedidoRepository;
         private readonly IProduto _produtoRepository;
         private readonly ICliente _clienteRepository;
+        private readonly Domain.Services.IPagamentoGateway _pagamentoService;
 
-
-
-        public PedidoUseCase(IPedido pedidoRepository, IProduto produtoRepository, ICliente clienteRepository)
+        public PedidoUseCase(IPedido pedidoRepository, IProduto produtoRepository, ICliente clienteRepository, Domain.Services.IPagamentoGateway pagamentoService)
         {
             _pedidoRepository = pedidoRepository;
             _produtoRepository = produtoRepository;
             _clienteRepository = clienteRepository;
+            _pagamentoService = pagamentoService;
         }
 
         public IEnumerable<DTO.Pedido.Response> List()
@@ -107,8 +107,8 @@ namespace FIAP.Modules.Application.UseCases
                 throw new Exception($"Produtos inválidos - Ids:[{string.Join(",", prodNotFound.Select(s => s.ProdutoId))}]");
             }
 
+            //Cria o identificador do user anonimo
             string identifier = (!pedido.ClienteId.HasValue || pedido.ClienteId.Value == 0) ? Guid.NewGuid().ToString() : "";
-           
             //Busca os produtos do pedido para poder pegar os valores unitarios
             var products = _produtoRepository.List().Where(w => pedido.Itens.Select(s => s.ProdutoId).Any(a => a == w.Id)).ToList();
             //Cria a lista de itens para o request
@@ -118,9 +118,20 @@ namespace FIAP.Modules.Application.UseCases
                 Quantidade = s.Quantidade.Value,
                 PrecoUnitario = products.FirstOrDefault(f => f.Id == s.ProdutoId).Preco
             });
+           
             //Soma o total do pedido
             decimal totalValue = itemsRequest.Select(s => s.PrecoUnitario * s.Quantidade).Sum();
 
+            //Chama o serviço de pagamento
+            var paymentResult = _pagamentoService.ProcessPayment(new Domain.Entities.Pagamento.Request
+            {
+                Nome = pedido.DadosPagamento.Nome,
+                TipoPagamentoId = pedido.DadosPagamento.TipoPagamentoId,
+                TokenCartao = pedido.DadosPagamento.TokenCartao,
+                Valor = totalValue
+            });
+
+            //Cria o objeto de request
             var request = new Domain.Entities.Pedido.Request
             {
                 Anonimo = (!pedido.ClienteId.HasValue || pedido.ClienteId.Value == 0),
@@ -130,7 +141,7 @@ namespace FIAP.Modules.Application.UseCases
                 ClienteObservacao = pedido.ClienteObservacao,
                 Valor = totalValue,
                 Itens = itemsRequest,
-                TipoPagamentoId = pedido.DadosPagamento.TipoPagamentoId.Value
+                DadosPagamento = paymentResult
             };
 
             return _pedidoRepository.Order(request);

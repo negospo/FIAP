@@ -108,7 +108,7 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
                                     values 
                                     (@pedido_id,@produto_id,@preco_unitario,@quantidade)";
 
-            string queryPaymentInsert = "insert into pedido_pagamento (pedido_id,tipo_pagamento_id) values (@pedido_id,@tipo_pagamento_id)";
+            string queryPaymentInsert = "insert into pedido_pagamento (pedido_id,tipo_pagamento_id,status,valor,codigo_transacao) values (@pedido_id,@tipo_pagamento_id,@status,@valor,@codigo_transacao)";
 
             using (var connection = Database.Connection())
             {
@@ -135,11 +135,14 @@ namespace FIAP.Adapters.PostgreSQL.Repositories
                     }).ToList();
                     //Salva os itens do pedido
                     transaction.Connection.Execute(queryOrderItem, orderItems);
-
+                    //Salva dados de pagamento
                     transaction.Connection.Execute(queryPaymentInsert, new
                     {
                         pedido_id = id,
-                        tipo_pagamento_id = pedido.TipoPagamentoId
+                        tipo_pagamento_id = pedido.DadosPagamento.TipoPagamentoId,
+                        status = pedido.DadosPagamento.Status,
+                        valor = pedido.DadosPagamento.Valor,
+                        codigo_transacao = pedido.DadosPagamento.CodigoTransacao
                     });
 
                     transaction.Commit();
