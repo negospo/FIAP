@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>FIAP Application</title>
-</head>
-<body>
-    <h1>FIAP Application</h1>
-    <p>Este repositório contém a aplicação FIAP, que é um sistema de gerenciamento XYZ. A aplicação é hospedada e versionada neste repositório do GitHub e é facilmente executada através do Docker Compose.</p>
+# README
 
-    <h2>Pré-requisitos</h2>
-    <ul>
-        <li><a href="https://docs.docker.com/engine/install/">Docker</a></li>
-        <li><a href="https://docs.docker.com/compose/install/">Docker Compose</a></li>
-    </ul>
+Olá, bem-vindo ao repositório do projeto da FIAP!
 
-    <h2>Como usar</h2>
-    <p>Siga as etapas abaixo para clonar e executar a aplicação:</p>
+Este arquivo README irá orientar você sobre como baixar e executar o aplicativo por meio de um `docker-compose.yml`.
 
-    <h3>1. Clonar o Repositório</h3>
-    <p>Primeiro, clone o repositório do GitHub para a sua máquina local usando o seguinte comando:</p>
-    <pre><code>git clone https://github.com/negospo/FIAP.git</code></pre>
+## Pré-requisitos
+Antes de começar, certifique-se de ter o Docker e o Docker Compose instalados em seu computador. Se você ainda não os instalou, pode obter instruções na documentação oficial do Docker:
 
-    <h3>2. Navegar até o Diretório do Projeto</h3>
-    <p>Em seguida, navegue até o diretório do projeto que você acabou de clonar:</p>
-    <pre><code>cd FIAP</code></pre>
+- [Instalação do Docker](https://docs.docker.com/get-docker/)
+- [Instalação do Docker Compose](https://docs.docker.com/compose/install/)
 
-    <h3>3. Executar a Aplicação</h3>
-    <p>Agora, você pode executar a aplicação usando o Docker Compose com o seguinte comando:</p>
-    <pre><code>docker-compose up</code></pre>
-    <p>A aplicação agora deve estar rodando em <code>localhost</code> na porta definida em seu arquivo <code>docker-compose.yml</code>.</p>
-    
-</body>
-</html>
+## Baixando o Repositório
+Primeiro, vamos clonar o repositório para a sua máquina local. Abra o terminal e execute o seguinte comando:
+
+`git clone https://github.com/negospo/FIAP.git`
+
+Isso irá baixar o repositório para a pasta `FIAP` em seu diretório atual.
+
+## Navegando até a Pasta do Projeto
+Depois de clonar o repositório, você precisa navegar até o diretório do projeto. Você pode fazer isso com o seguinte comando:
+
+
+## Executando o Projeto com Docker Compose
+Com o Docker e o Docker Compose instalados e o repositório clonado em seu sistema, você está pronto para executar o projeto.
+Execute o seguinte comando para iniciar os serviços definidos no arquivo `docker-compose.yml`:
+
+`docker-compose up`
+
+
+
+
